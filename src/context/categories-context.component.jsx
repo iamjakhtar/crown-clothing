@@ -1,5 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { getCategoriesAndDocuments } from "../utils/firebase/firebase.util";
+import { useDispatch } from "react-redux";
+import { fetchCategoriesAsync } from "../store/category/category.actions";
 
 export const CategoriesContext = createContext({
   categoriesMap: {},
@@ -7,11 +9,11 @@ export const CategoriesContext = createContext({
 
 export const CategoriesProvider = ({ children }) => {
   const [categoriesMap, setCategoriesMap] = useState({});
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const getCategoryMap = async () => {
-      const categoryMap = await getCategoriesAndDocuments();
-      setCategoriesMap(categoryMap);
+    const getCategoryMap = () => {
+      dispatch(fetchCategoriesAsync());
     };
     getCategoryMap();
   }, []);
