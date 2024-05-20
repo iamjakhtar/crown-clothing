@@ -20,7 +20,7 @@ function App() {
       dispatch(setCurrentUser(user));
     });
     return unsubscribe;
-  }, []);
+  }, [dispatch]);
 
   
 
