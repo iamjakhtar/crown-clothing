@@ -7,7 +7,8 @@ import Shop from "./routes/shop/shop.component";
 import Checkout from "./routes/checkout/checkout.component";
 import { onAuthStateChangedListener, createUserDocumentFromAuth } from "./utils/firebase/firebase.util";
 import { useDispatch } from "react-redux";
-import { setCurrentUser } from "./store/user/user.actions";
+import { setCurrentUser } from "./store/user/user.reducer";
+
 
 function App() {
 
@@ -17,7 +18,8 @@ function App() {
       if (user) {
         await createUserDocumentFromAuth(user);
       }
-      dispatch(setCurrentUser(user));
+      const pickedUser = user && (({accessToken, email}) => ({accessToken, email}))(user);
+      dispatch(setCurrentUser(pickedUser));
     });
     return unsubscribe;
   }, [dispatch]);

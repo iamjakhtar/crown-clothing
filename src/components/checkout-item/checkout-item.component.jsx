@@ -1,3 +1,5 @@
+import { useDispatch } from "react-redux";
+import { addItemToCart, clearItemFromCart, removeItemFromCart } from "../../store/cart/cart.reducer";
 import {
   Arrow,
   CheckoutItemContainer,
@@ -8,14 +10,11 @@ import {
   RemoveButton,
   Value,
 } from "./checkout-item.styles";
-import { removeItemFromCart, addItemToCart, clearItemFromCart } from "../../store/cart/cart.actions";
-import { useDispatch, useSelector } from "react-redux";
-import {selectCartItems} from '../../store/cart/cart.selector';
 
 const CheckoutItem = ({ cartItem }) => {
   const { name, imageUrl, quantity, price } = cartItem;
   const dispatch = useDispatch();
-  const cartItems = useSelector(selectCartItems);
+
 
   return (
     <CheckoutItemContainer>
@@ -24,12 +23,12 @@ const CheckoutItem = ({ cartItem }) => {
       </ImageContainer>
       <Name>{name}</Name>
       <QuantityContainer>
-        <Arrow onClick={() => dispatch(removeItemFromCart(cartItems, cartItem))}>&lt;</Arrow>
+        <Arrow onClick={() => dispatch(removeItemFromCart(cartItem))}>&lt;</Arrow>
         <Value>{quantity}</Value>
-        <Arrow onClick={() => dispatch(addItemToCart(cartItems, cartItem))}>&gt;</Arrow>
+        <Arrow onClick={() => dispatch(addItemToCart(cartItem))}>&gt;</Arrow>
       </QuantityContainer>
       <Price>{price}</Price>
-      <RemoveButton onClick={() => dispatch(clearItemFromCart(cartItems, cartItem))}>X</RemoveButton>
+      <RemoveButton onClick={() => dispatch(clearItemFromCart(cartItem))}>X</RemoveButton>
     </CheckoutItemContainer>
   );
 };
