@@ -8,6 +8,7 @@ import {
   HeaderBlock,
   Total,
 } from "./checkout.styles";
+import PaymentForm from "../../components/payment-form/payment-form.component";
 
 
 const Checkout = () => {
@@ -31,6 +32,7 @@ const Checkout = () => {
         ))
       )}
       <Total>Total: ${cartTotal}</Total>
+      <PaymentForm />
     </CheckoutContainer>
   );
 };
